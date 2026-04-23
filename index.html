@@ -6,7 +6,6 @@
     <title>虛擬夥伴記憶賽 - 專業投影優化版</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <!-- 引入紙花特效庫 -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap');
@@ -68,7 +67,6 @@
             cursor: pointer;
         }
 
-        /* 自定義 Slider 樣式 */
         input[type=range] {
             accent-color: #10b981;
         }
@@ -76,11 +74,19 @@
 </head>
 <body class="min-h-screen bg-mesh flex flex-col items-center">
 
-    <!-- 音效資源 -->
-    <audio id="bgm-player" loop preload="auto" src="https://assets.mixkit.co/music/preview/mixkit-games-worldbeat-466.mp3"></audio>
-    <audio id="sfx-flip" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3"></audio>
-    <audio id="sfx-win" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-an-extra-bonus-2098.mp3"></audio>
-    <audio id="sfx-click" preload="auto" src="https://assets.mixkit.co/sfx/preview/mixkit-selection-click-200.mp3"></audio>
+    <!-- 音效資源 - 更新為更穩定的來源 -->
+    <audio id="bgm-player" loop preload="auto">
+        <source src="https://cdn.pixabay.com/audio/2022/01/18/audio_d0a13f69d2.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-flip" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-modern-click-box-check-1120.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-win" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-an-extra-bonus-2098.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-click" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-selection-click-200.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- 頂部進度條 -->
     <div id="progress-bar-container" class="fixed top-0 left-0 w-full h-2 bg-gray-200 z-50 hidden">
@@ -126,7 +132,6 @@
         </h1>
         <p class="text-xl md:text-2xl text-gray-500 mb-12 font-medium">觀察、記憶、挑戰！看看誰是記憶大師？</p>
         
-        <!-- 記憶技巧學習按鈕 (移動到上方) -->
         <button onclick="toggleLearningModal()" class="bg-amber-100 hover:bg-amber-200 text-amber-700 px-10 py-5 rounded-full font-black text-xl md:text-2xl shadow-lg border-b-4 border-amber-300 transition-all btn-active flex items-center justify-center gap-3 mx-auto mb-16 max-w-2xl w-full">
             <span>🧠</span> 記憶大師技巧（遊戲前建議先閱讀）
         </button>
@@ -151,7 +156,7 @@
         </div>
     </div>
 
-    <!-- 記憶技巧學習彈窗 -->
+    <!-- 記憶技巧彈窗 -->
     <div id="learning-modal" class="hidden fixed inset-0 bg-gray-900/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
         <div class="bg-white rounded-[3rem] w-full max-w-4xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col animate__animated animate__zoomIn">
             <div class="p-8 border-b flex justify-between items-center bg-amber-50">
@@ -160,67 +165,36 @@
             </div>
             
             <div class="flex-1 overflow-y-auto p-8 md:p-12 space-y-12">
-                <!-- 技巧 1 -->
                 <div class="flex flex-col md:flex-row gap-8 items-start">
                     <div class="bg-amber-500 text-white w-16 h-16 rounded-3xl flex items-center justify-center text-3xl font-black shrink-0">1</div>
                     <div class="space-y-3">
                         <h3 class="text-2xl font-black text-gray-800">聯想法：連結外表與名字</h3>
-                        <p class="text-lg text-gray-500 leading-relaxed">
-                            觀察夥伴的照片特徵，將其轉化為名字的一部分。例如：<br>
-                            「頭髮金閃閃，所以她叫 <span class="text-amber-600 font-bold">金美玲</span>」。<br>
-                            將視覺與名字結合，大腦會記得更深！
-                        </p>
+                        <p class="text-lg text-gray-500 leading-relaxed">觀察夥伴的照片特徵，將其轉化為名字的一部分。例如：「頭髮金閃閃，所以她叫 <span class="text-amber-600 font-bold">金美玲</span>」。將視覺與名字結合，大腦會記得更深！</p>
                     </div>
                 </div>
-
-                <!-- 技巧 2 -->
                 <div class="flex flex-col md:flex-row gap-8 items-start">
                     <div class="bg-emerald-500 text-white w-16 h-16 rounded-3xl flex items-center justify-center text-3xl font-black shrink-0">2</div>
                     <div class="space-y-3">
                         <h3 class="text-2xl font-black text-gray-800">故事法：編織一段小故事</h3>
-                        <p class="text-lg text-gray-500 leading-relaxed">
-                            把零散的資訊串成一句有趣的話。例如：<br>
-                            「這位 <span class="text-emerald-600 font-bold">25 歲</span> 的 <span class="text-emerald-600 font-bold">工程師</span> 喜歡在 <span class="text-emerald-600 font-bold">加拿大</span> 划船」。<br>
-                            有邏輯的情節比死記硬背容易 10 倍。
-                        </p>
+                        <p class="text-lg text-gray-500 leading-relaxed">把零散的資訊串成一句有趣的話。例如：「這位 <span class="text-emerald-600 font-bold">25 歲</span> 的 <span class="text-emerald-600 font-bold">工程師</span> 喜歡在 <span class="text-emerald-600 font-bold">加拿大</span> 划船」。</p>
                     </div>
                 </div>
-
-                <!-- 技巧 3 -->
                 <div class="flex flex-col md:flex-row gap-8 items-start">
                     <div class="bg-blue-500 text-white w-16 h-16 rounded-3xl flex items-center justify-center text-3xl font-black shrink-0">3</div>
                     <div class="space-y-3">
                         <h3 class="text-2xl font-black text-gray-800">特徵掃描：關鍵詞定位</h3>
-                        <p class="text-lg text-gray-500 leading-relaxed">
-                            不要試圖記住所有字，只抓取「動詞」或「名詞」。<br>
-                            例如：興趣是「高山健行」，大腦只需記住「<span class="text-blue-600 font-bold">山</span>」一個字即可。<br>
-                            縮減資訊量是快速記憶的關鍵。
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 技巧 4 -->
-                <div class="flex flex-col md:flex-row gap-8 items-start">
-                    <div class="bg-rose-500 text-white w-16 h-16 rounded-3xl flex items-center justify-center text-3xl font-black shrink-0">4</div>
-                    <div class="space-y-3">
-                        <h3 class="text-2xl font-black text-gray-800">分塊記憶：分類處理</h3>
-                        <p class="text-lg text-gray-500 leading-relaxed">
-                            如果是多人挑戰，嘗試「先記所有人的職業」，再記「所有人的名字」。<br>
-                            將大腦切換到相同的分類模式，處理速度會顯著加快。
-                        </p>
+                        <p class="text-lg text-gray-500 leading-relaxed">不要試圖記住所有字，只抓取「關鍵字」。例如：興趣是「高山健行」，大腦只需記住「<span class="text-blue-600 font-bold">山</span>」一個字即可。</p>
                     </div>
                 </div>
             </div>
 
             <div class="p-8 bg-gray-50 border-t">
-                <button onclick="toggleLearningModal()" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-5 rounded-2xl font-black text-2xl shadow-lg transition-all btn-active">
-                    學會了！準備開賽
-                </button>
+                <button onclick="toggleLearningModal()" class="w-full bg-amber-600 hover:bg-amber-700 text-white py-5 rounded-2xl font-black text-2xl shadow-lg transition-all btn-active">學會了！準備開賽</button>
             </div>
         </div>
     </div>
 
-    <!-- 遊戲螢幕 -->
+    <!-- 遊戲螢幕 - 佈局優化 -->
     <div id="game-screen" class="hidden w-full max-w-[1600px] flex flex-col items-center px-4 md:px-10 py-6 pb-40">
         <div class="w-full flex justify-between items-center mb-10">
             <button onclick="goHome()" class="bg-white/80 backdrop-blur text-gray-500 px-6 py-3 rounded-2xl font-bold shadow-sm hover:bg-white transition btn-active">🏠 回首頁</button>
@@ -231,7 +205,8 @@
                 </div>
             </div>
         </div>
-        <div id="partners-container" class="w-full flex flex-wrap justify-center gap-8 md:gap-12 mb-10"></div>
+        <!-- 使用 Grid 網格佈局確保大螢幕維持同一行 -->
+        <div id="partners-container" class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mb-10 justify-items-center"></div>
         <div class="fixed bottom-8 left-0 w-full px-6 flex justify-center z-40 pointer-events-none">
             <div class="bg-white/90 backdrop-blur-2xl p-3 rounded-full shadow-2xl border border-white/50 w-full max-w-lg flex gap-3 pointer-events-auto">
                 <button id="main-action-btn" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white text-xl font-black py-4 px-8 rounded-full shadow-lg shadow-emerald-100 transition-all btn-active">載入新夥伴</button>
@@ -239,7 +214,6 @@
         </div>
     </div>
 
-    <!-- 勝利彈窗 -->
     <div id="victory-modal" class="hidden fixed inset-0 bg-gray-900/80 backdrop-blur-md z-[100] flex items-center justify-center p-6">
         <div class="bg-white rounded-[3.5rem] p-12 text-center max-w-lg shadow-2xl border-t-[12px] border-emerald-500 animate__animated animate__zoomIn">
             <div class="text-9xl mb-6 animate__animated animate__bounceIn">👑</div>
@@ -274,7 +248,8 @@
             phase: 'idle',
             partners: [],
             bgmVol: 0.5,
-            sfxVol: 0.8
+            sfxVol: 0.8,
+            audioInitialized: false
         };
 
         const els = {
@@ -297,20 +272,32 @@
 
         const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
+        // 音訊自動初始化邏輯
+        function initAudio() {
+            if (state.audioInitialized) return;
+            // 嘗試播放靜音背景音以取得授權
+            els.bgm.play().then(() => {
+                state.audioInitialized = true;
+                els.bgm.volume = state.bgmVol;
+            }).catch(e => console.log("等待操作以啟用音效..."));
+        }
+
         async function safePlay(audioElement) {
+            initAudio(); // 每次播放嘗試初始化
             try {
-                if (audioElement && audioElement.readyState >= 1) await audioElement.play();
+                audioElement.currentTime = 0;
+                await audioElement.play();
             } catch (err) {}
         }
 
         function playBGM() {
+            initAudio();
             els.bgm.currentTime = 0;
             els.bgm.volume = state.bgmVol;
-            safePlay(els.bgm);
+            els.bgm.play().catch(() => {});
         }
 
         function playSFX(audio) {
-            audio.currentTime = 0;
             audio.volume = state.sfxVol;
             safePlay(audio);
         }
@@ -356,6 +343,16 @@
             }
             const cards = document.querySelectorAll('.partner-card');
             cards.forEach(card => (state.phase === 'hidden' || state.phase === 'revealing' ? card.classList.add('can-click') : card.classList.remove('can-click')));
+            
+            // 針對不同人數調整 Grid 欄位數 (投影優化)
+            if (state.level <= 2) {
+                els.container.classList.remove('lg:grid-cols-4');
+                els.container.classList.add('lg:grid-cols-2');
+            } else {
+                els.container.classList.remove('lg:grid-cols-2');
+                els.container.classList.add('lg:grid-cols-4');
+            }
+
             switch(state.phase) {
                 case 'idle':
                     els.mainBtn.innerText = "載入新夥伴";
@@ -394,10 +391,11 @@
         async function startCustomMode(count) { playSFX(els.sfxClick); playBGM(); state.mode = 'custom'; state.level = count; state.phase = 'idle'; showGame(); }
         function showGame() { els.home.classList.add('hidden'); els.game.classList.remove('hidden'); els.victory.classList.add('hidden'); renderPlaceholders(); updateUI(); }
         function goHome() { playSFX(els.sfxClick); els.bgm.pause(); els.home.classList.remove('hidden'); els.game.classList.add('hidden'); els.victory.classList.add('hidden'); }
+        
         function renderPlaceholders() {
             els.container.innerHTML = '';
             for(let i=0; i<state.level; i++) {
-                els.container.innerHTML += `<div class="w-[300px] h-[450px] bg-white/50 border-4 border-dashed border-gray-300 rounded-[2.5rem] flex items-center justify-center animate__animated animate__fadeIn"><span class="text-5xl text-gray-300 font-black">?</span></div>`;
+                els.container.innerHTML += `<div class="w-full max-w-[320px] h-[450px] bg-white/50 border-4 border-dashed border-gray-300 rounded-[2.5rem] flex items-center justify-center animate__animated animate__fadeIn"><span class="text-5xl text-gray-300 font-black">?</span></div>`;
             }
         }
 
@@ -445,7 +443,7 @@
                 const themeColor = isMale ? 'blue' : 'rose';
                 const card = document.createElement('div');
                 card.id = `card-${i}`;
-                card.className = `partner-card w-[320px] h-[480px] animate__animated animate__backInUp`;
+                card.className = `partner-card w-full max-w-[320px] h-[480px] animate__animated animate__backInUp`;
                 card.style.animationDelay = `${i * 0.1}s`;
                 card.setAttribute('onclick', `toggleCard(${i})`);
                 card.innerHTML = `
@@ -494,8 +492,12 @@
             else if (state.phase === 'revealing') handleNext();
         });
 
-        window.addEventListener('keydown', (e) => { if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); els.mainBtn.click(); } });
-        window.addEventListener('error', (e) => { if (e.target.tagName === 'AUDIO') console.warn("音訊問題防護已啟動"); }, true);
+        // 監聽鍵盤與全局點擊以初始化音訊
+        window.addEventListener('click', initAudio);
+        window.addEventListener('keydown', (e) => { 
+            initAudio();
+            if (e.code === 'Space' || e.code === 'Enter') { e.preventDefault(); els.mainBtn.click(); } 
+        });
     </script>
 </body>
 </html>
